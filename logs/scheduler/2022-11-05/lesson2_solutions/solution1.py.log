@@ -1,0 +1,7 @@
+[2022-11-06T01:59:04.995+0200] {processor.py:154} INFO - Started process (PID=1209) to work on /Users/mnagy99/airflow/dags/lesson2_solutions/solution1.py
+[2022-11-06T01:59:04.996+0200] {processor.py:756} INFO - Processing file /Users/mnagy99/airflow/dags/lesson2_solutions/solution1.py for tasks to queue
+[2022-11-06T01:59:04.996+0200] {logging_mixin.py:120} INFO - [2022-11-06T01:59:04.996+0200] {dagbag.py:537} INFO - Filling up the DagBag from /Users/mnagy99/airflow/dags/lesson2_solutions/solution1.py
+[2022-11-06T01:59:05.866+0200] {processor.py:766} INFO - DAG(s) dict_keys(['lesson2.exercise1']) retrieved from /Users/mnagy99/airflow/dags/lesson2_solutions/solution1.py
+[2022-11-06T01:59:06.307+0200] {logging_mixin.py:120} INFO - [2022-11-06T01:59:06.307+0200] {dag.py:2585} INFO - Sync 1 DAGs
+[2022-11-06T01:59:06.325+0200] {logging_mixin.py:120} INFO - [2022-11-06T01:59:06.325+0200] {dag.py:3336} INFO - Setting next_dagrun for lesson2.exercise1 to 2022-11-06T01:59:05.858412+00:00, run_after=2022-11-07T01:59:05.858412+00:00
+[2022-11-06T01:59:06.345+0200] {processor.py:176} INFO - Processing /Users/mnagy99/airflow/dags/lesson2_solutions/solution1.py took 1.351 seconds

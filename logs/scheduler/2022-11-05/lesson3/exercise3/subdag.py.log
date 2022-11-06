@@ -1,0 +1,5 @@
+[2022-11-06T01:58:05.306+0200] {processor.py:154} INFO - Started process (PID=1047) to work on /Users/mnagy99/airflow/dags/lesson3/exercise3/subdag.py
+[2022-11-06T01:58:05.307+0200] {processor.py:756} INFO - Processing file /Users/mnagy99/airflow/dags/lesson3/exercise3/subdag.py for tasks to queue
+[2022-11-06T01:58:05.307+0200] {logging_mixin.py:120} INFO - [2022-11-06T01:58:05.307+0200] {dagbag.py:537} INFO - Filling up the DagBag from /Users/mnagy99/airflow/dags/lesson3/exercise3/subdag.py
+[2022-11-06T01:58:06.229+0200] {processor.py:768} WARNING - No viable dags retrieved from /Users/mnagy99/airflow/dags/lesson3/exercise3/subdag.py
+[2022-11-06T01:58:06.363+0200] {processor.py:176} INFO - Processing /Users/mnagy99/airflow/dags/lesson3/exercise3/subdag.py took 1.058 seconds

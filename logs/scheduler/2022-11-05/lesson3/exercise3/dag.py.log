@@ -1,0 +1,12 @@
+[2022-11-06T01:57:58.637+0200] {processor.py:154} INFO - Started process (PID=1025) to work on /Users/mnagy99/airflow/dags/lesson3/exercise3/dag.py
+[2022-11-06T01:57:58.638+0200] {processor.py:756} INFO - Processing file /Users/mnagy99/airflow/dags/lesson3/exercise3/dag.py for tasks to queue
+[2022-11-06T01:57:58.639+0200] {logging_mixin.py:120} INFO - [2022-11-06T01:57:58.639+0200] {dagbag.py:537} INFO - Filling up the DagBag from /Users/mnagy99/airflow/dags/lesson3/exercise3/dag.py
+[2022-11-06T01:57:59.657+0200] {processor.py:766} INFO - DAG(s) dict_keys(['lesson3.exercise3.trips_subdag', 'lesson3.exercise3.stations_subdag', 'lesson3.exercise3']) retrieved from /Users/mnagy99/airflow/dags/lesson3/exercise3/dag.py
+[2022-11-06T01:58:00.223+0200] {logging_mixin.py:120} INFO - [2022-11-06T01:58:00.223+0200] {dag.py:2585} INFO - Sync 3 DAGs
+[2022-11-06T01:58:00.244+0200] {logging_mixin.py:120} INFO - [2022-11-06T01:58:00.244+0200] {dag.py:3336} INFO - Setting next_dagrun for lesson3.exercise3 to 2022-11-05T23:57:59.541862+00:00, run_after=2022-11-06T23:57:59.541862+00:00
+[2022-11-06T01:58:00.246+0200] {logging_mixin.py:120} INFO - [2022-11-06T01:58:00.246+0200] {dag.py:3336} INFO - Setting next_dagrun for lesson3.exercise3.stations_subdag to None, run_after=None
+[2022-11-06T01:58:00.248+0200] {logging_mixin.py:120} INFO - [2022-11-06T01:58:00.247+0200] {dag.py:3336} INFO - Setting next_dagrun for lesson3.exercise3.trips_subdag to None, run_after=None
+[2022-11-06T01:58:00.254+0200] {logging_mixin.py:120} INFO - [2022-11-06T01:58:00.254+0200] {dag.py:2585} INFO - Sync 2 DAGs
+[2022-11-06T01:58:00.258+0200] {logging_mixin.py:120} INFO - [2022-11-06T01:58:00.258+0200] {dag.py:3336} INFO - Setting next_dagrun for lesson3.exercise3.stations_subdag to None, run_after=None
+[2022-11-06T01:58:00.258+0200] {logging_mixin.py:120} INFO - [2022-11-06T01:58:00.258+0200] {dag.py:3336} INFO - Setting next_dagrun for lesson3.exercise3.trips_subdag to None, run_after=None
+[2022-11-06T01:58:00.275+0200] {processor.py:176} INFO - Processing /Users/mnagy99/airflow/dags/lesson3/exercise3/dag.py took 1.639 seconds

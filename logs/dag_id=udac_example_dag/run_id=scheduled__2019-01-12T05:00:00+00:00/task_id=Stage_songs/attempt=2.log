@@ -1,0 +1,39 @@
+[2022-11-06T03:55:35.801+0200] {taskinstance.py:1165} INFO - Dependencies all met for <TaskInstance: udac_example_dag.Stage_songs scheduled__2019-01-12T05:00:00+00:00 [queued]>
+[2022-11-06T03:55:35.807+0200] {taskinstance.py:1165} INFO - Dependencies all met for <TaskInstance: udac_example_dag.Stage_songs scheduled__2019-01-12T05:00:00+00:00 [queued]>
+[2022-11-06T03:55:35.807+0200] {taskinstance.py:1362} INFO - 
+--------------------------------------------------------------------------------
+[2022-11-06T03:55:35.808+0200] {taskinstance.py:1363} INFO - Starting attempt 2 of 4
+[2022-11-06T03:55:35.808+0200] {taskinstance.py:1364} INFO - 
+--------------------------------------------------------------------------------
+[2022-11-06T03:55:35.817+0200] {taskinstance.py:1383} INFO - Executing <Task(StageToRedshiftOperator): Stage_songs> on 2019-01-12 05:00:00+00:00
+[2022-11-06T03:55:35.819+0200] {standard_task_runner.py:55} INFO - Started process 9149 to run task
+[2022-11-06T03:55:35.824+0200] {standard_task_runner.py:82} INFO - Running: ['airflow', 'tasks', 'run', 'udac_example_dag', 'Stage_songs', 'scheduled__2019-01-12T05:00:00+00:00', '--job-id', '48', '--raw', '--subdir', 'DAGS_FOLDER/project/udac_example_dag.py', '--cfg-path', '/var/folders/sp/0_qfxj196m7gs6tyf69417g00000gn/T/tmpxca72jx1']
+[2022-11-06T03:55:35.826+0200] {standard_task_runner.py:83} INFO - Job 48: Subtask Stage_songs
+[2022-11-06T03:55:35.873+0200] {task_command.py:376} INFO - Running <TaskInstance: udac_example_dag.Stage_songs scheduled__2019-01-12T05:00:00+00:00 [running]> on host mahmouds-macbook-pro.local
+[2022-11-06T03:55:35.915+0200] {taskinstance.py:1590} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=udacity
+AIRFLOW_CTX_DAG_ID=udac_example_dag
+AIRFLOW_CTX_TASK_ID=Stage_songs
+AIRFLOW_CTX_EXECUTION_DATE=2019-01-12T05:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=2
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2019-01-12T05:00:00+00:00
+[2022-11-06T03:55:35.919+0200] {base.py:71} INFO - Using connection ID 'aws_credentials' for task execution.
+[2022-11-06T03:55:35.919+0200] {connection_wrapper.py:303} INFO - AWS Connection (conn_id='aws_credentials', conn_type='aws') credentials retrieved from login and password.
+[2022-11-06T03:55:35.932+0200] {stage_redshift.py:78} INFO - Clearing data destination Redshift table
+[2022-11-06T03:55:35.935+0200] {base.py:71} INFO - Using connection ID 'redshift' for task execution.
+[2022-11-06T03:55:38.053+0200] {sql.py:315} INFO - Running statement: TRUNCATE TABLE staging_songs, parameters: None
+[2022-11-06T03:55:38.568+0200] {taskinstance.py:1851} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/Users/mnagy99/airflow/plugins/operators/stage_redshift.py", line 79, in execute
+    redshift_hook.run(f"TRUNCATE TABLE {self.table}") # Faster than DELETE FROM {self.table}
+  File "/Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/providers/common/sql/hooks/sql.py", line 295, in run
+    self._run_command(cur, sql_statement, parameters)
+  File "/Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/providers/common/sql/hooks/sql.py", line 320, in _run_command
+    cur.execute(sql_statement)
+psycopg2.errors.UndefinedTable: relation "staging_songs" does not exist
+
+[2022-11-06T03:55:38.573+0200] {taskinstance.py:1401} INFO - Marking task as UP_FOR_RETRY. dag_id=udac_example_dag, task_id=Stage_songs, execution_date=20190112T050000, start_date=20221106T015535, end_date=20221106T015538
+[2022-11-06T03:55:38.585+0200] {standard_task_runner.py:100} ERROR - Failed to execute job 48 for task Stage_songs (relation "staging_songs" does not exist
+; 9149)
+[2022-11-06T03:55:38.601+0200] {local_task_job.py:164} INFO - Task exited with return code 1
+[2022-11-06T03:55:38.621+0200] {local_task_job.py:273} INFO - 0 downstream tasks scheduled from follow-on schedule check
