@@ -1,0 +1,40 @@
+
+ERROR:
+------
+NameError: name 'table' is not defined
+
+SOLUTION: 
+----------
+Replace table with self.table
+
+LOG:
+----
+*** Reading local file: /Users/mnagy99/airflow/logs/dag_id=udac_example_dag/run_id=scheduled__2018-11-01T00:00:00+00:00/task_id=Load_songplays_fact_table/attempt=1.log
+[2022-11-07, 12:50:28 UTC] {taskinstance.py:1165} INFO - Dependencies all met for <TaskInstance: udac_example_dag.Load_songplays_fact_table scheduled__2018-11-01T00:00:00+00:00 [queued]>
+[2022-11-07, 12:50:28 UTC] {taskinstance.py:1165} INFO - Dependencies all met for <TaskInstance: udac_example_dag.Load_songplays_fact_table scheduled__2018-11-01T00:00:00+00:00 [queued]>
+[2022-11-07, 12:50:28 UTC] {taskinstance.py:1362} INFO - 
+--------------------------------------------------------------------------------
+[2022-11-07, 12:50:28 UTC] {taskinstance.py:1363} INFO - Starting attempt 1 of 4
+[2022-11-07, 12:50:28 UTC] {taskinstance.py:1364} INFO - 
+--------------------------------------------------------------------------------
+[2022-11-07, 12:50:28 UTC] {taskinstance.py:1383} INFO - Executing <Task(LoadFactOperator): Load_songplays_fact_table> on 2018-11-01 00:00:00+00:00
+[2022-11-07, 12:50:28 UTC] {standard_task_runner.py:55} INFO - Started process 3192 to run task
+[2022-11-07, 12:50:28 UTC] {standard_task_runner.py:82} INFO - Running: ['airflow', 'tasks', 'run', 'udac_example_dag', 'Load_songplays_fact_table', 'scheduled__2018-11-01T00:00:00+00:00', '--job-id', '76', '--raw', '--subdir', 'DAGS_FOLDER/project/udac_example_dag.py', '--cfg-path', '/var/folders/sp/0_qfxj196m7gs6tyf69417g00000gn/T/tmpuo1qvg8g']
+[2022-11-07, 12:50:28 UTC] {standard_task_runner.py:83} INFO - Job 76: Subtask Load_songplays_fact_table
+[2022-11-07, 12:50:28 UTC] {task_command.py:376} INFO - Running <TaskInstance: udac_example_dag.Load_songplays_fact_table scheduled__2018-11-01T00:00:00+00:00 [running]> on host mahmouds-macbook-pro.local
+[2022-11-07, 12:50:28 UTC] {taskinstance.py:1590} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=udacity
+AIRFLOW_CTX_DAG_ID=udac_example_dag
+AIRFLOW_CTX_TASK_ID=Load_songplays_fact_table
+AIRFLOW_CTX_EXECUTION_DATE=2018-11-01T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2018-11-01T00:00:00+00:00
+[2022-11-07, 12:50:28 UTC] {taskinstance.py:1851} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/Users/mnagy99/airflow/plugins/operators/load_fact.py", line 51, in execute
+    self.log.info(f"Loading data into the fact table {table}!!")
+NameError: name 'table' is not defined
+[2022-11-07, 12:50:28 UTC] {taskinstance.py:1401} INFO - Marking task as UP_FOR_RETRY. dag_id=udac_example_dag, task_id=Load_songplays_fact_table, execution_date=20181101T000000, start_date=20221107T125028, end_date=20221107T125028
+[2022-11-07, 12:50:28 UTC] {standard_task_runner.py:100} ERROR - Failed to execute job 76 for task Load_songplays_fact_table (name 'table' is not defined; 3192)
+[2022-11-07, 12:50:28 UTC] {local_task_job.py:164} INFO - Task exited with return code 1
+[2022-11-07, 12:50:28 UTC] {local_task_job.py:273} INFO - 0 downstream tasks scheduled from follow-on schedule check

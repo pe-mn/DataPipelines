@@ -7,7 +7,7 @@ They expect you to create high grade data pipelines that are dynamic and built f
 
 The source data resides in S3 and needs to be processed in Sparkify's data warehouse in Amazon Redshift. The source datasets consist of JSON logs that tell about user activity in the application and JSON metadata about the songs the users listen to.
 
-<img alt="DAG" src="DAG.png" />
+[<img alt="DAG" src="DAG.png" />];
 
 ***
 
@@ -52,7 +52,7 @@ Using the song and log datasets, you'll need to create a star schema optimized f
   • start_time, hour, day, week, month, year, weekday
 
 <!-- width="21px"   (https://www.linkedin.com/in/nagy99/) -->
-<img alt="Sparkifydb_ERD" src="sparkifydb_erd.png" />
+[<img alt="Sparkifydb_ERD" src="sparkifydb_erd.png" />];
 
 ***
 

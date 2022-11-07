@@ -1,22 +1,5 @@
 # Note:
-# Stage --> Meaning moving from S3 to Redshift
-
-# https://knowledge.udacity.com/questions/659765
-# https://knowledge.udacity.com/questions/685378
-# https://knowledge.udacity.com/questions/892503
-# https://www.geeksforgeeks.org/difference-between-delete-and-truncate/
-
-# https://knowledge.udacity.com/questions/448122
-# A registered template field can utilize the environment variables of Airflow during execution.
-# An example of this is trying to fetch the files that has the date as a part of the name 
-# (file_name_20200113). You will use the s3_key variable to do this by parsing the date during
-# execution as follows (file_name_{{ ds_nodash }}). This makes the parsing of files dynamic 
-# and fetches the daily files without any intervention from the user.
-
-
-# # from airflow.hooks.postgres_hook import PostgresHook
-# from airflow.models import BaseOperator
-# from airflow.utils.decorators import apply_defaults
+# Stage --> Means moving from S3 to Redshift
 
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.providers.amazon.aws.hooks.base_aws import AwsBaseHook
@@ -26,30 +9,28 @@ class StageToRedshiftOperator(BaseOperator):
     ui_color = '#358140'
     template_fields = ("s3_key",)
     # We added s3_key to template_fields in our custom operator to render the execution_date
-    # in our stage events tast 
+    # in our stage events task
 
-# https://docs.aws.amazon.com/redshift/latest/dg/copy-parameters-authorization.html
 # Use one of the following to provide authorization for the COPY command:
 #     - IAM_ROLE parameter
 #     - ACCESS_KEY_ID and SECRET_ACCESS_KEY parameters
 #     - CREDENTIALS clause
 
+# Valid values for avro_option are as follows:
+#     - 'auto'
+#     - 'auto ignorecase'
+#     - 's3://jsonpaths_file' 
+
     # This is a Class Attribute
     copy_sql = """
-        COPY {}
-        FROM '{}'
-        ACCESSS_KEY_ID '{}'
-        SECRET_ACCESS_KEY '{}'
-        IGNOREHEADER {}
-        DELIMITER '{}'
-        JSON '{}'
-    """
-    # REGION '{}'
-    # COMPUPDATE OFF
-    # TIMEFORMAT 'epochmillisecs'
+            COPY {}
+            FROM '{}'
+            ACCESS_KEY_ID '{}'
+            SECRET_ACCESS_KEY '{}'
+            REGION '{}'
+            {} '{}' 
+    """     
 
-
-    # @apply_defaults
     def __init__(self,
                  # Define operators params (with defaults) 
                  redshift_conn_id = "",
@@ -57,10 +38,9 @@ class StageToRedshiftOperator(BaseOperator):
                  table = "",
                  s3_bucket = "",
                  s3_key = "",
-                 delimiter = ",",
-                 ignore_headers = 1,
-                 json="auto",
-                #  region="",
+                 region="",
+                 file_format="JSON",
+                 jsonpath = 'auto',
                  *args, **kwargs):
 
         super(StageToRedshiftOperator, self).__init__(*args, **kwargs)
@@ -70,12 +50,20 @@ class StageToRedshiftOperator(BaseOperator):
         self.table = table
         self.s3_bucket = s3_bucket
         self.s3_key = s3_key
-        self.delimiter = delimiter
-        self.ignore_headers = ignore_headers
-        self.json = json
-        # self.region=region
+        self.region= region
+        self.file_format = file_format
+        self.jsonpath = jsonpath
 
     def execute(self, context):
+        """
+        Copy data from S3 buckets to redshift cluster into staging tables.
+            - redshift_conn_id: redshift cluster connection
+            - aws_credentials_id: AWS connection
+            - table: redshift cluster table name
+            - s3_bucket: S3 bucket name holding source data
+            - s3_key: S3 key files of source data
+            - file_format: source file format - options JSON, CSV
+        """
         aws_hook = AwsBaseHook(self.aws_credentials_id)
         credentials = aws_hook.get_credentials()
         redshift_hook = PostgresHook(postgres_conn_id=self.redshift_conn_id)
@@ -95,11 +83,15 @@ class StageToRedshiftOperator(BaseOperator):
             s3_path,
             credentials.access_key,
             credentials.secret_key,
-            self.ignore_headers,
-            self.delimiter,
-            self.json
+            self.region,
+            self.file_format,
+            self.jsonpath,
+            # self.ignore_headers,
+            # self.delimiter,
         )
         redshift_hook.run(formatted_sql)
+
+        self.log.info(f"Success: Copying {self.table} from S3 to Redshift")
 
 
 

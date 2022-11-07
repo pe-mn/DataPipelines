@@ -1,7 +1,3 @@
-# from airflow.hooks.postgres_hook import PostgresHook
-# from airflow.models import BaseOperator
-# from airflow.utils.decorators import apply_defaults
-
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.models.baseoperator import BaseOperator
 
@@ -13,13 +9,12 @@ class LoadDimensionOperator(BaseOperator):
                     TRUNCATE TABLE {table}
                    """ 
 
-    # @apply_defaults
     def __init__(self,
                  # Define operators params (with defaults) 
                  redshift_conn_id = "",
                  table = "",
                  sql_query = "",
-                 truncate_table = False,
+                 truncate_table = False, # to allow switch between append and insert-delete functionality
                  *args, **kwargs):
 
         super(LoadDimensionOperator, self).__init__(*args, **kwargs)
@@ -30,11 +25,14 @@ class LoadDimensionOperator(BaseOperator):
         self.truncate_table = truncate_table
 
     def execute(self, context):
+        """
+        Load data into the dimension tables (users, songs, artists, time)
+        """ 
         redshift_hook = PostgresHook(postgres_conn_id=self.redshift_conn_id)
 
         if self.truncate_table:
             formatted_truncate_sql = LoadDimensionOperator.truncate_sql.format(self.table)
-            redshift_hook.run(formatted_insert_sql)
+            redshift_hook.run(formatted_truncate_sql)
           
-        self.log.info(f"Loading data into the dimension table {table}!!")
+        self.log.info(f"Loading data into the dimension table {self.table}!!")
         redshift_hook.run(self.sql_query)

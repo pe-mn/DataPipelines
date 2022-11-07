@@ -1,7 +1,0 @@
-[2022-11-06T01:57:18.110+0200] {processor.py:154} INFO - Started process (PID=942) to work on /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/example_dags/example_latest_only.py
-[2022-11-06T01:57:18.113+0200] {processor.py:756} INFO - Processing file /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/example_dags/example_latest_only.py for tasks to queue
-[2022-11-06T01:57:18.113+0200] {logging_mixin.py:120} INFO - [2022-11-06T01:57:18.113+0200] {dagbag.py:537} INFO - Filling up the DagBag from /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/example_dags/example_latest_only.py
-[2022-11-06T01:57:18.163+0200] {processor.py:766} INFO - DAG(s) dict_keys(['latest_only']) retrieved from /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/example_dags/example_latest_only.py
-[2022-11-06T01:57:18.918+0200] {logging_mixin.py:120} INFO - [2022-11-06T01:57:18.918+0200] {dag.py:2585} INFO - Sync 1 DAGs
-[2022-11-06T01:57:18.956+0200] {logging_mixin.py:120} INFO - [2022-11-06T01:57:18.955+0200] {dag.py:3336} INFO - Setting next_dagrun for latest_only to 2022-11-05T19:57:18.955647+00:00, run_after=2022-11-05T23:57:18.955647+00:00
-[2022-11-06T01:57:19.003+0200] {processor.py:176} INFO - Processing /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/example_dags/example_latest_only.py took 0.895 seconds

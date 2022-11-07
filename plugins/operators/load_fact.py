@@ -1,19 +1,6 @@
-# https://knowledge.udacity.com/questions/755179
-
-# from airflow.hooks.postgres_hook import PostgresHook
-# from airflow.models import BaseOperator
-# from airflow.utils.decorators import apply_defaults
-
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.models.baseoperator import BaseOperator
 from helpers.sql_queries import SqlQueries
-
-
-# You don't need to drop and re-create the fact table everytime the LoadFactOperator runs.
-# You can create tables in the query editor.  --> of your Redshift cluster
-# If you delete your cluster, you have to create tables 
-# every time you create a new cluster -- In your create_tables.sql 
-# you have all the table just copy and paste it into the query editor and run it.
 
 
 class LoadFactOperator(BaseOperator):
@@ -42,12 +29,15 @@ class LoadFactOperator(BaseOperator):
 
 
     def execute(self, context):
+        """
+        Load data into the fact table (songplays)
+        """ 
         redshift_hook = PostgresHook(postgres_conn_id=self.redshift_conn_id)
 
         if self.truncate_table:
             formatted_truncate_sql = LoadFactOperator.truncate_sql.format(self.table)
-            redshift_hook.run(formatted_insert_sql)
+            redshift_hook.run(formatted_truncate_sql)
           
-        self.log.info(f"Loading data into the fact table {table}!!")
+        self.log.info(f"Loading data into the fact table {self.table}!!")
         redshift_hook.run(self.sql_query)
         

@@ -1,0 +1,80 @@
+
+ERROR:
+------
+psycopg2.errors.SyntaxError: syntax error at or near "ACCESSS_KEY_ID"
+
+SOLUTION: 
+----------
+There is a typo in "ACCESSS_KEY_ID" 
+- Remove the extra S in Access
+
+
+LOG:
+----
+*** Reading local file: /Users/mnagy99/airflow/logs/dag_id=udac_example_dag/run_id=scheduled__2019-01-12T06:00:00+00:00/task_id=Stage_events/attempt=1.log
+[2022-11-06, 02:06:13 UTC] {taskinstance.py:1165} INFO - Dependencies all met for <TaskInstance: udac_example_dag.Stage_events scheduled__2019-01-12T06:00:00+00:00 [queued]>
+[2022-11-06, 02:06:13 UTC] {taskinstance.py:1165} INFO - Dependencies all met for <TaskInstance: udac_example_dag.Stage_events scheduled__2019-01-12T06:00:00+00:00 [queued]>
+[2022-11-06, 02:06:13 UTC] {taskinstance.py:1362} INFO - 
+--------------------------------------------------------------------------------
+[2022-11-06, 02:06:13 UTC] {taskinstance.py:1363} INFO - Starting attempt 1 of 4
+[2022-11-06, 02:06:13 UTC] {taskinstance.py:1364} INFO - 
+--------------------------------------------------------------------------------
+[2022-11-06, 02:06:13 UTC] {taskinstance.py:1383} INFO - Executing <Task(StageToRedshiftOperator): Stage_events> on 2019-01-12 06:00:00+00:00
+[2022-11-06, 02:06:13 UTC] {standard_task_runner.py:55} INFO - Started process 9805 to run task
+[2022-11-06, 02:06:13 UTC] {standard_task_runner.py:82} INFO - Running: ['airflow', 'tasks', 'run', 'udac_example_dag', 'Stage_events', 'scheduled__2019-01-12T06:00:00+00:00', '--job-id', '53', '--raw', '--subdir', 'DAGS_FOLDER/project/udac_example_dag.py', '--cfg-path', '/var/folders/sp/0_qfxj196m7gs6tyf69417g00000gn/T/tmp688nm1m9']
+[2022-11-06, 02:06:13 UTC] {standard_task_runner.py:83} INFO - Job 53: Subtask Stage_events
+[2022-11-06, 02:06:14 UTC] {task_command.py:376} INFO - Running <TaskInstance: udac_example_dag.Stage_events scheduled__2019-01-12T06:00:00+00:00 [running]> on host mahmouds-macbook-pro.local
+[2022-11-06, 02:06:14 UTC] {logging_mixin.py:120} WARNING - /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/utils/context.py:204 AirflowContextDeprecationWarning: Accessing 'execution_date' from the template is deprecated and will be removed in a future version. Please use 'data_interval_start' or 'logical_date' instead.
+[2022-11-06, 02:06:14 UTC] {taskinstance.py:1590} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=udacity
+AIRFLOW_CTX_DAG_ID=udac_example_dag
+AIRFLOW_CTX_TASK_ID=Stage_events
+AIRFLOW_CTX_EXECUTION_DATE=2019-01-12T06:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2019-01-12T06:00:00+00:00
+[2022-11-06, 02:06:14 UTC] {base.py:71} INFO - Using connection ID 'aws_credentials' for task execution.
+[2022-11-06, 02:06:14 UTC] {connection_wrapper.py:303} INFO - AWS Connection (conn_id='aws_credentials', conn_type='aws') credentials retrieved from login and password.
+[2022-11-06, 02:06:14 UTC] {stage_redshift.py:78} INFO - Clearing data destination Redshift table
+[2022-11-06, 02:06:14 UTC] {base.py:71} INFO - Using connection ID 'redshift' for task execution.
+[2022-11-06, 02:06:16 UTC] {sql.py:315} INFO - Running statement: TRUNCATE TABLE staging_events, parameters: None
+[2022-11-06, 02:06:16 UTC] {stage_redshift.py:85} INFO - Copying data from s3 to Redshift
+[2022-11-06, 02:06:16 UTC] {logging_mixin.py:120} WARNING - /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/utils/context.py:204 AirflowContextDeprecationWarning: Accessing 'next_ds' from the template is deprecated and will be removed in a future version. Please use '{{ data_interval_end | ds }}' instead.
+[2022-11-06, 02:06:16 UTC] {logging_mixin.py:120} WARNING - /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/utils/context.py:204 AirflowContextDeprecationWarning: Accessing 'next_ds_nodash' from the template is deprecated and will be removed in a future version. Please use '{{ data_interval_end | ds_nodash }}' instead.
+[2022-11-06, 02:06:16 UTC] {logging_mixin.py:120} WARNING - /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/utils/context.py:204 AirflowContextDeprecationWarning: Accessing 'next_execution_date' from the template is deprecated and will be removed in a future version. Please use 'data_interval_end' instead.
+[2022-11-06, 02:06:16 UTC] {logging_mixin.py:120} WARNING - /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/utils/context.py:204 AirflowContextDeprecationWarning: Accessing 'prev_ds' from the template is deprecated and will be removed in a future version.
+[2022-11-06, 02:06:16 UTC] {logging_mixin.py:120} WARNING - /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/utils/context.py:204 AirflowContextDeprecationWarning: Accessing 'prev_ds_nodash' from the template is deprecated and will be removed in a future version.
+[2022-11-06, 02:06:16 UTC] {logging_mixin.py:120} WARNING - /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/utils/context.py:204 AirflowContextDeprecationWarning: Accessing 'prev_execution_date' from the template is deprecated and will be removed in a future version.
+[2022-11-06, 02:06:16 UTC] {logging_mixin.py:120} WARNING - /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/utils/context.py:204 AirflowContextDeprecationWarning: Accessing 'prev_execution_date_success' from the template is deprecated and will be removed in a future version. Please use 'prev_data_interval_start_success' instead.
+[2022-11-06, 02:06:16 UTC] {logging_mixin.py:120} WARNING - /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/utils/context.py:204 AirflowContextDeprecationWarning: Accessing 'tomorrow_ds' from the template is deprecated and will be removed in a future version.
+[2022-11-06, 02:06:16 UTC] {logging_mixin.py:120} WARNING - /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/utils/context.py:204 AirflowContextDeprecationWarning: Accessing 'tomorrow_ds_nodash' from the template is deprecated and will be removed in a future version.
+[2022-11-06, 02:06:16 UTC] {logging_mixin.py:120} WARNING - /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/utils/context.py:204 AirflowContextDeprecationWarning: Accessing 'yesterday_ds' from the template is deprecated and will be removed in a future version.
+[2022-11-06, 02:06:16 UTC] {logging_mixin.py:120} WARNING - /Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/utils/context.py:204 AirflowContextDeprecationWarning: Accessing 'yesterday_ds_nodash' from the template is deprecated and will be removed in a future version.
+[2022-11-06, 02:06:16 UTC] {base.py:71} INFO - Using connection ID 'redshift' for task execution.
+[2022-11-06, 02:06:18 UTC] {sql.py:315} INFO - Running statement: 
+    COPY staging_events
+    FROM 's3://udacity-dend/log_data/2019/01/2019-01-12-events.json'
+    ACCESSS_KEY_ID 'ASIAXUCJIPRIUU3ECWPH'
+    SECRET_ACCESS_KEY '***'
+    IGNOREHEADER 1
+    DELIMITER ','
+    JSON 'auto'
+    , parameters: None
+[2022-11-06, 02:06:19 UTC] {taskinstance.py:1851} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/Users/mnagy99/airflow/plugins/operators/stage_redshift.py", line 97, in execute
+    redshift_hook.run(formatted_sql)
+  File "/Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/providers/common/sql/hooks/sql.py", line 295, in run
+    self._run_command(cur, sql_statement, parameters)
+  File "/Users/mnagy99/opt/anaconda3/envs/airflow-env/lib/python3.8/site-packages/airflow/providers/common/sql/hooks/sql.py", line 320, in _run_command
+    cur.execute(sql_statement)
+psycopg2.errors.SyntaxError: syntax error at or near "ACCESSS_KEY_ID"
+LINE 4:     ACCESSS_KEY_ID 'ASIAXUCJIPRIUU3ECWPH'
+            ^
+
+[2022-11-06, 02:06:19 UTC] {taskinstance.py:1401} INFO - Marking task as UP_FOR_RETRY. dag_id=udac_example_dag, task_id=Stage_events, execution_date=20190112T060000, start_date=20221106T020613, end_date=20221106T020619
+[2022-11-06, 02:06:19 UTC] {standard_task_runner.py:100} ERROR - Failed to execute job 53 for task Stage_events (syntax error at or near "ACCESSS_KEY_ID"
+LINE 4:     ACCESSS_KEY_ID 'ASIAXUCJIPRIUU3ECWPH'
+            ^
+; 9805)
+[2022-11-06, 02:06:19 UTC] {local_task_job.py:164} INFO - Task exited with return code 1
+[2022-11-06, 02:06:19 UTC] {local_task_job.py:273} INFO - 0 downstream tasks scheduled from follow-on schedule check
