@@ -91,7 +91,7 @@ class StageToRedshiftOperator(BaseOperator):
         )
         redshift_hook.run(formatted_sql)
 
-        self.log.info(f"Success: Copying {self.table} from S3 to Redshift")
+        self.log.info(f"SUCCESS: Copying {self.table} from S3 to Redshift")
 
 
 

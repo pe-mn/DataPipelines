@@ -19,7 +19,7 @@ default_args = {
     'retry_delay': timedelta(minutes=5),
     'catchup': False, # When turned off, the scheduler creates a DAG run only for the latest interval.
     'email_on_retry': False,
-    # 'email': ['***']    
+    'dagrun_timeout': timedelta(minutes=60),  
 }
 
 # preset --> @hourl  |  cron --> 0 * * * *
@@ -97,21 +97,24 @@ staging_quality_checks = DataQualityOperator(
     task_id='staging_quality_checks',
     dag=dag,
     redshift_conn_id = "redshift",
-    tables = ["staging_songs", "staging_events"]
+    tables = ["staging_songs", "staging_events"],
+    dq_checks=[{'check_sql': "SELECT COUNT(*) FROM {}", 'threshold': 0, 'comparison': operator.gt}]
 )
 
 fact_quality_checks = DataQualityOperator(
     task_id='fact_quality_checks',
     dag=dag,
     redshift_conn_id = "redshift",
-    tables = ["songplays"]
+    tables = ["songplays"],
+    dq_checks=[{'check_sql': "SELECT COUNT(*) FROM {}", 'threshold': 0, 'comparison': operator.gt}]
 )
 
 dim_quality_checks = DataQualityOperator(
     task_id='dim_quality_checks',
     dag=dag,
     redshift_conn_id = "redshift",
-    tables = ["songs", "artists", "time", "users"]
+    tables = ["songs", "artists", "time", "users"],
+    dq_checks=[{'check_sql': "SELECT COUNT(*) FROM {}", 'threshold': 0, 'comparison': operator.gt}]
 )
 
 end_operator = EmptyOperator(task_id='Stop_execution',  dag=dag)
@@ -119,17 +122,25 @@ end_operator = EmptyOperator(task_id='Stop_execution',  dag=dag)
 #-----------------------------------------------------------------------
 # TASK ORDERING
 #---------------
-start_operator >> stage_events_to_redshift
-start_operator >> stage_songs_to_redshift
+# To make the diagram looks even more concise, you may combine the dependency assignments in a single line:
+# op1 >> op2 >> [op3, op4] >> op5
+start_operator >> [stage_events_to_redshift, stage_songs_to_redshift] >> staging_quality_checks
+staging_quality_checks>>load_songplays_table>>fact_quality_checks>>end_operator 
+staging_quality_checks>>load_dimention_tables>>dim_quality_checks>>end_operator 
 
-stage_events_to_redshift >> staging_quality_checks
-stage_songs_to_redshift >> staging_quality_checks
+# start_operator >> stage_events_to_redshift
+# start_operator >> stage_songs_to_redshift
 
-staging_quality_checks >> load_songplays_table
-load_songplays_table >> fact_quality_checks
+# stage_events_to_redshift >> staging_quality_checks
+# stage_songs_to_redshift >> staging_quality_checks
 
-fact_quality_checks >> load_dimention_tables
-load_dimention_tables >> dim_quality_checks
-dim_quality_checks >> end_operator 
+# staging_quality_checks >> load_songplays_table
+# load_songplays_table >> fact_quality_checks
+
+# fact_quality_checks >> load_dimention_tables
+# load_dimention_tables >> dim_quality_checks
+# dim_quality_checks >> end_operator 
+
+
 
 
